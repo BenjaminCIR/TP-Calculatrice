@@ -1,72 +1,158 @@
-function operation(value){
-    console.log(value);
-    texte = document.getElementById("ecran").textContent;
-    console.log(texte);
-    console.log('eval('+texte+')');
-    result = eval(texte);
-    console.log(result);
-    return result;
-}
-
-function affichage(value){
-    console.log(value);
-    texte = document.getElementById("ecran").textContent;
-    if (value != '=' && value != 'C'){
-        document.getElementById("ecran").innerHTML = texte + value;
+class BaseCalculator {
+    constructor(){
+        this.texte = document.getElementById("ecran");
+        this.result = undefined;
+        this.buttons = document.getElementsByTagName("button");
     }
-    if (value == '='){
-        let plus = "+";
-        let moins = "-";
-        let fois = "*";
-        let sur = "/";
-        let mod = "%";
-        let dot = ".";
-        let open_ = "(";
-        let close_ = ")";
-
-        let indexplus = texte.indexOf(plus);
-        let indexmoins = texte.indexOf(moins);
-        let indexfois = texte.indexOf(fois);
-        let indexsur = texte.indexOf(sur);
-        let indexmod = texte.indexOf(mod);
-        let indexdot = texte.indexOf(dot);
-
-        let count1 = 0;
-        for (let i = 0; i < texte.length; i++) {
-            if (texte[i] === open_) {
-                count1++;
-            }
+    operation(){
+        this.result = eval(this.texte.textContent);
+        console.log(this.result);
+    }
+    
+    affichage(value){
+        console.log(value);
+        if (value != '=' && value != 'C' && value != 'supp'){
+            this.texte.innerHTML = this.texte.textContent + value;
         }
-        let count2 = 0;
-        for (let i = 0; i < texte.length; i++) {
-            if (texte[i] === close_) {
-                count2++;
-            }
-        }
-        console.log(count1);
-        console.log(count2);
-
-        if(((texte.charAt(indexplus-1) === plus || texte.charAt(indexplus-1) === moins || texte.charAt(indexplus-1) === fois || texte.charAt(indexplus-1) === sur || texte.charAt(indexplus-1) === mod || texte.charAt(indexplus-1) === dot) || (texte.charAt(indexplus+1) === plus || texte.charAt(indexplus+1) === moins || texte.charAt(indexplus+1) === fois || texte.charAt(indexplus+1) === sur || texte.charAt(indexplus+1) === mod || texte.charAt(indexplus+1) === dot)) || ((texte.charAt(indexmoins-1) === plus || texte.charAt(indexmoins-1) === moins || texte.charAt(indexmoins-1) === fois || texte.charAt(indexmoins-1) === sur || texte.charAt(indexmoins-1) === mod || texte.charAt(indexmoins-1) === dot) || (texte.charAt(indexmoins+1) === plus || texte.charAt(indexmoins+1) === moins || texte.charAt(indexmoins+1) === fois || texte.charAt(indexmoins+1) === sur || texte.charAt(indexmoins+1) === mod || texte.charAt(indexmoins+1) === dot)) || ((texte.charAt(indexfois-1) === plus || texte.charAt(indexfois-1) === moins || texte.charAt(indexfois-1) === fois || texte.charAt(indexfois-1) === sur || texte.charAt(indexfois-1) === mod || texte.charAt(indexplus-1) === dot) || (texte.charAt(indexfois+1) === plus || texte.charAt(indexfois+1) === moins || texte.charAt(indexfois+1) === fois || texte.charAt(indexfois+1) === sur || texte.charAt(indexfois+1) === mod || texte.charAt(indexfois+1) === dot)) || ((texte.charAt(indexsur-1) === plus || texte.charAt(indexsur-1) === moins || texte.charAt(indexsur-1) === fois || texte.charAt(indexsur-1) === sur || texte.charAt(indexsur-1) === mod || texte.charAt(indexplus-1) === dot) || (texte.charAt(indexsur+1) === plus || texte.charAt(indexsur+1) === moins || texte.charAt(indexsur+1) === fois || texte.charAt(indexsur+1) === sur || texte.charAt(indexsur+1) === mod || texte.charAt(indexsur+1) === dot)) || ((texte.charAt(indexmod-1) === plus || texte.charAt(indexmod-1) === moins || texte.charAt(indexmod-1) === fois || texte.charAt(indexmod-1) === sur || texte.charAt(indexmod-1) === mod || texte.charAt(indexmod-1) === dot) || (texte.charAt(indexmod+1) === plus || texte.charAt(indexmod+1) === moins || texte.charAt(indexmod+1) === fois || texte.charAt(indexmod+1) === sur || texte.charAt(indexmod+1) === mod || texte.charAt(indexmod+1) === dot)) || ((texte.charAt(indexdot-1) === plus || texte.charAt(indexdot-1) === moins || texte.charAt(indexdot-1) === fois || texte.charAt(indexdot-1) === sur || texte.charAt(indexdot-1) === mod || texte.charAt(indexdot-1) === dot) || (texte.charAt(indexdot+1) === plus || texte.charAt(indexdot+1) === moins || texte.charAt(indexdot+1) === fois || texte.charAt(indexdot+1) === sur || texte.charAt(indexdot+1) === mod || texte.charAt(indexdot+1) === dot)) || (count1 != count2)){
-            document.getElementById("ecran").innerHTML = "ERREUR";
-            let buttons = document.getElementsByTagName("button");
-            for (let i = 0; i < buttons.length; i++) {
-                if (buttons[i].value != "C") {
-                  buttons[i].disabled = true;
+        if (value == '='){
+            try {
+                this.operation();
+                this.texte.innerHTML = this.result;
+            } catch {
+                this.texte.innerHTML = "ERREUR";
+                for (let i = 0; i < this.buttons.length; i++) {
+                    if (this.buttons[i].value != "C") {
+                      this.buttons[i].disabled = true;
+                    }
                 }
             }
         }
-        else {
-            document.getElementById("ecran").innerHTML = operation();;
+    }
+    
+    effacer(){
+        this.texte.textContent = "";
+        for (let i = 0; i < this.buttons.length; i++) {
+            if (this.buttons[i].value != "C") {
+                this.buttons[i].disabled = false;
+            }
         }
+    }
+
+    supprimer(){
+        this.texte.innerHTML = this.texte.innerHTML.substring(0,this.texte.innerHTML.length-1);
     }
 }
 
-function effacer(){
-    document.getElementById("ecran").textContent = ""
-    let buttons = document.getElementsByTagName("button");
-    for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].value != "C") {
-            buttons[i].disabled = false;
-        }
-    }
-}
+let baseCalculator = new BaseCalculator();
+
+
+
+
+const egal = document.getElementById("result");
+const echap = document.getElementById("escape_");
+const plus = document.getElementById("plus");
+const fois = document.getElementById("fois");
+const moins = document.getElementById("moins");
+const divise = document.getElementById("divise");
+const mod = document.getElementById("mod");
+const point = document.getElementById("point");
+const ouvert = document.getElementById("ouvert");
+const ferme = document.getElementById("ferme");
+const un = document.getElementById("un");
+const deux = document.getElementById("deux");
+const trois = document.getElementById("trois");
+const quatre = document.getElementById("quatre");
+const cinq = document.getElementById("cinq");
+const six = document.getElementById("six");
+const sept = document.getElementById("sept");
+const huit = document.getElementById("huit");
+const neuf = document.getElementById("neuf");
+const zero = document.getElementById("zero");
+const supp = document.getElementById("supp");
+
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Enter" || event.key === "=") {
+    egal.click();
+  }
+
+  if (event.key === "c" || event.key === "Escape" || event.key === "C") {
+    echap.click();
+  }
+
+  if (event.key === "+") {
+    plus.click();
+  }
+
+  if (event.key === "*" || event.key === "µ" || event.key === "X" || event.key === "x") {
+    fois.click();
+  }
+
+  if (event.key === "-") {
+    moins.click();
+  }
+
+  if (event.key === "/" || event.key === ":") {
+    divise.click();
+  }
+
+  if (event.key === "%" || event.key === "ù") {
+    mod.click();
+  }
+
+  if (event.key === "." || event.key === ";" || event.key === "," || event.key === "?") {
+    point.click();
+  }
+
+  if (event.key === "(") {
+    ouvert.click();
+  }
+
+  if (event.key === ")" || event.key === "°") {
+    ferme.click();
+  }
+
+  if (event.key === "1" || event.key === "&") {
+    un.click();
+  }
+
+  if (event.key === "2" || event.key === "é") {
+    deux.click();
+  }
+
+  if (event.key === "3" || event.key === '"') {
+    trois.click();
+  }
+
+  if (event.key === "4" || event.key === "'") {
+    quatre.click();
+  }
+
+  if (event.key === "5") {
+    cinq.click();
+  }
+
+  if (event.key === "6") {
+    six.click();
+  }
+
+  if (event.key === "7" || event.key === "è") {
+    sept.click();
+  }
+
+  if (event.key === "8" || event.key === "_") {
+    huit.click();
+  }
+
+  if (event.key === "9" || event.key === "ç") {
+    neuf.click();
+  }
+
+  if (event.key === "0" || event.key === "à") {
+    zero.click();
+  }
+  
+  if (event.key === "Backspace") {
+    supp.click();
+  }
+});

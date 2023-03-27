@@ -5,32 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="calculatrice.css">
-    <script src="calculatrice.js"></script>
     <title>Calculatrice</title>
 </head>
 <body>
     <div class="grid-container">
 		<div class="grid-item" id="ecran"></div>
-		<button class="grid-item" value="C" id="escape_" onclick="effacer()">C</button>
-		<button class="grid-item" value="(" onclick="affichage('(')">(</button>
-		<button class="grid-item" value=")" onclick="affichage(')')">)</button>
-		<button class="grid-item" value="/" onclick="affichage('/')">/</button>
-		<button class="grid-item" value="1" onclick="affichage(1)">1</button>
-		<button class="grid-item" value="2" onclick="affichage(2)">2</button>
-		<button class="grid-item" value="3" onclick="affichage(3)">3</button>
-		<button class="grid-item" value="*" onclick="affichage('*')">×</button>
-		<button class="grid-item" value="4" onclick="affichage(4)">4</button>
-		<button class="grid-item" value="5" onclick="affichage(5)">5</button>
-		<button class="grid-item" value="6" onclick="affichage(6)">6</button>
-		<button class="grid-item" value="-" onclick="affichage('-')">-</button>
-		<button class="grid-item" value="7" onclick="affichage(7)">7</button>
-		<button class="grid-item" value="8" onclick="affichage(8)">8</button>
-		<button class="grid-item" value="9" onclick="affichage(9)">9</button>
-		<button class="grid-item" value="+" onclick="affichage('+')">+</button>
-		<button class="grid-item" value="0" onclick="affichage(0)">0</button>
-		<button class="grid-item" value="." onclick="affichage('.')">.</button>
-		<button class="grid-item" value="%" onclick="affichage('%')">%</button>
-		<button class="grid-item" id="result" value="result" onclick="affichage('=')">=</button>
+		<button class="grid-item" id="escape_" value="C" onclick="baseCalculator.effacer()">C</button>
+		<button class="grid-item" id="ouvert" value="(" onclick="baseCalculator.affichage('(')">(</button>
+		<button class="grid-item" id="ferme" value=")" onclick="baseCalculator.affichage(')')">)</button>
+		<button class="grid-item" id="supp" value="supp" onclick="baseCalculator.supprimer()"><img src="supprimer.png"></img></button>
+		<button class="grid-item" id="un" value="1" onclick="baseCalculator.affichage(1)">1</button>
+		<button class="grid-item" id="deux" value="2" onclick="baseCalculator.affichage(2)">2</button>
+		<button class="grid-item" id="trois" value="3" onclick="baseCalculator.affichage(3)">3</button>
+		<button class="grid-item" id="plus" value="+" onclick="baseCalculator.affichage('+')">+</button>
+		<button class="grid-item" id="quatre" value="4" onclick="baseCalculator.affichage(4)">4</button>
+		<button class="grid-item" id="cinq" value="5" onclick="baseCalculator.affichage(5)">5</button>
+		<button class="grid-item" id="six" value="6" onclick="baseCalculator.affichage(6)">6</button>
+		<button class="grid-item" id="moins" value="-" onclick="baseCalculator.affichage('-')">-</button>
+		<button class="grid-item" id="sept" value="7" onclick="baseCalculator.affichage(7)">7</button>
+		<button class="grid-item" id="huit" value="8" onclick="baseCalculator.affichage(8)">8</button>
+		<button class="grid-item" id="neuf" value="9" onclick="baseCalculator.affichage(9)">9</button>
+		<button class="grid-item" id="fois" value="*" onclick="baseCalculator.affichage('*')">×</button>
+		<button class="grid-item" id="zero" value="0" onclick="baseCalculator.affichage(0)">0</button>
+		<button class="grid-item" id="point" value="." onclick="baseCalculator.affichage('.')">.</button>
+		<button class="grid-item" id="mod" value="%" onclick="baseCalculator.affichage('%')">%</button>
+		<button class="grid-item" id="divise" value="/" onclick="baseCalculator.affichage('/')">/</button>
+		<button class="grid-item" id="result" value="result" onclick="baseCalculator.affichage('=')">=</button>
+		
+		<script src="calculatrice.js"></script>
 	</div>
 </body>
 </html>
